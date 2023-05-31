@@ -8,8 +8,11 @@ public class NetworkClient {
 		urlSession = URLSession.shared
 	}
 	
-	public func get<Entity: Decodable>(requestUrl: URL) async throws -> Entity {
-		let urlRequest = URLRequest(url: requestUrl)
+	public func get<Entity: Decodable>(endPoint: EndPoint) async throws -> Entity {
+		guard let url = makeURL(endPoint) else {
+			throw ServerError(error: "Endpoint parsing error")
+		}
+		let urlRequest = URLRequest(url: url)
 		let (data, httpResponse) = try await urlSession.data(for: urlRequest)
 		logResponseOnError(httpResponse: httpResponse, data: data)
 		do {
@@ -20,6 +23,15 @@ public class NetworkClient {
 			}
 			throw error
 		}
+	}
+	
+	private func makeURL(scheme: String = "http",
+						_ endPoint: EndPoint) -> URL? {
+		var components = URLComponents()
+		components.scheme = scheme
+		components.host = ""
+		components.path += "/api/\(endPoint.path())"
+		return components.url
 	}
 	
 	private func logResponseOnError(httpResponse: URLResponse, data: Data) {

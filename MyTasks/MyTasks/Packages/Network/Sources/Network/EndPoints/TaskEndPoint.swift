@@ -1,10 +1,5 @@
 import Models
 
-public protocol EndPoint {
-	func path() -> String
-	var jsonValue: Encodable? { get }
-}
-
 public enum TaskEndPoint: EndPoint {
 	case all
 	case get(id: String)
