@@ -50,11 +50,11 @@
 		AE1DD1532A0DB61E00F32703 = {
 			isa = PBXGroup;
 			children = (
-				AE9344D72A26FCAC00D81AA3 /* Models */,
-				AE9344D52A26FBF000D81AA3 /* Network */,
 				AE1DD15E2A0DB61E00F32703 /* MyTasks */,
 				AE1DD15D2A0DB61E00F32703 /* Products */,
 				AE9344BE2A26E2A500D81AA3 /* Frameworks */,
+				AE9344D72A26FCAC00D81AA3 /* Models */,
+				AE9344D52A26FBF000D81AA3 /* Network */,
 			);
 			sourceTree = "<group>";
 		};
