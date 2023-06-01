@@ -1,16 +1,16 @@
 import Foundation
 
-public class NetworkClient {
-	private let urlSession: URLSession
+public class NetworkClient: NSObject {
+	private var urlSession: URLSession?
 	private let decoder = JSONDecoder()
 	
-	public init() {
-		urlSession = URLSession.shared
-		urlSession.sessionDescription = "Main Session" //This appears in the Instrument widow
+	public override init() {
+		super.init()
+		urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
 	}
 	
 	public func get<Entity: Decodable>(endPoint: EndPoint) async throws -> Entity {
-		guard let url = makeURL(endPoint) else {
+		guard let urlSession, let url = makeURL(endPoint) else {
 			throw ServerError(error: "Endpoint parsing error")
 		}
 		

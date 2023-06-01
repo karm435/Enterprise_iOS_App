@@ -6,7 +6,7 @@ public struct Todo: Encodable, Decodable {
 
 extension Todo {
 	public static var placeholder: Todo {
-		Todo(id: Int.random(in: 1..<100), title: "Sample Task", isCompleted: false)
+		Todo(id: Int.random(in: 1..<10000), title: "Sample Task", isCompleted: false)
 	}
 	
 	public static var placeholderTasks: [Todo] {
