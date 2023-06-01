@@ -22,14 +22,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapGet("/todos", () => {
+app.MapGet("api/todos", () => {
     var todos = TodoDb.Get();
     return todos;
 });
-app.MapGet("/todos/{id}", (int id) => TodoDb.Get().SingleOrDefault(t => t.id == id));
-app.MapPost("/todos", (Todo todo) => TodoDb.Create(todo));
-app.MapPut("/todos", (Todo todo) => TodoDb.Update(todo));
-app.MapDelete("/todos", (int id) => TodoDb.Delete(id));
+app.MapGet("api/todos/{id}", (int id) => TodoDb.Get().SingleOrDefault(t => t.id == id));
+app.MapPost("api/todos", (Todo todo) => TodoDb.Create(todo));
+app.MapPut("api/todos", (Todo todo) => TodoDb.Update(todo));
+app.MapDelete("api/todos", (int id) => TodoDb.Delete(id));
 
 app.UseRouting();
 app.UseEndpoints(endpoints => {

@@ -22,6 +22,21 @@ public enum TaskEndPoint: EndPoint {
 		}
 	}
 	
+	public var description: String {
+		switch self {
+			case .all:
+				return "All Tasks"
+			case .get(let id):
+				return "Get Task with id\(id)"
+			case .delete(let id):
+				return "Delete Task with id \(id)"
+			case .update:
+				return "Update Task"
+			case .create:
+				return "Create Task"
+		}
+	}
+	
 	public var jsonValue: Encodable? {
 		switch self {
 			case let .update(json):

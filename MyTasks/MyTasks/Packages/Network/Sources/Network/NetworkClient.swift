@@ -6,13 +6,16 @@ public class NetworkClient {
 	
 	public init() {
 		urlSession = URLSession.shared
+		urlSession.sessionDescription = "Main Session" //This appears in the Instrument widow
 	}
 	
 	public func get<Entity: Decodable>(endPoint: EndPoint) async throws -> Entity {
 		guard let url = makeURL(endPoint) else {
 			throw ServerError(error: "Endpoint parsing error")
 		}
+		
 		let urlRequest = URLRequest(url: url)
+		
 		let (data, httpResponse) = try await urlSession.data(for: urlRequest)
 		logResponseOnError(httpResponse: httpResponse, data: data)
 		do {
@@ -25,11 +28,12 @@ public class NetworkClient {
 		}
 	}
 	
-	private func makeURL(scheme: String = "http",
+	private func makeURL(scheme: String = "https",
 						_ endPoint: EndPoint) -> URL? {
 		var components = URLComponents()
 		components.scheme = scheme
-		components.host = ""
+		components.host = "localhost"
+		components.port = 7111
 		components.path += "/api/\(endPoint.path())"
 		return components.url
 	}
