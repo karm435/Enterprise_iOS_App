@@ -17,6 +17,7 @@ class TasksListViewModel: ObservableObject {
 			state = .display(tasks: tasks)
 		}
 		catch {
+			state = .error(error: error)
 			print(error)
 		}
 	}
@@ -29,5 +30,13 @@ extension TasksListViewModel {
 		case loading
 		case error(error: Error)
 		case display(tasks: [Todo])
+	}
+}
+
+extension TasksListViewModel {
+	static var preview: TasksListViewModel {
+		let viewModel = TasksListViewModel()
+		viewModel.state = .display(tasks: Todo.placeholderTasks)
+		return viewModel
 	}
 }
