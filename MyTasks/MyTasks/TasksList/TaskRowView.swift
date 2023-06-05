@@ -11,7 +11,6 @@ struct TaskRowView: View {
 				.foregroundColor(.green)
 				.opacity(task.isCompleted ? 1 : 0)
 		}
-		.padding()
 	}
 }
 

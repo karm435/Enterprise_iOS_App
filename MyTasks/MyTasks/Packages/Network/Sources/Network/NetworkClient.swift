@@ -1,6 +1,10 @@
 import Foundation
 
-public class NetworkClient: NSObject {
+public protocol NetworkClientProtocol {
+	func get<Entity: Decodable>(endPoint: EndPoint) async throws -> Entity
+}
+
+public class NetworkClient: NSObject, NetworkClientProtocol {
 	private var urlSession: URLSession?
 	private let decoder = JSONDecoder()
 	

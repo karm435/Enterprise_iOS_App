@@ -4,11 +4,11 @@ import Dependency
 import Network
 
 private struct NetworkClientKey: DependencyKey {
-	static var currentValue: NetworkClient = NetworkClient()
+	static var currentValue: NetworkClientProtocol = NetworkClient()
 }
 
 extension DependencyValues {
-	var networkClient: NetworkClient {
+	var networkClient: NetworkClientProtocol {
 		get { Self[NetworkClientKey.self] }
 		set { Self[NetworkClientKey.self] = newValue }
 	}
