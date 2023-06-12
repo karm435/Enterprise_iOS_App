@@ -7,10 +7,6 @@ import Network
 struct TasksListView: View {
 	@StateObject var viewModel: TasksListViewModel = .init()
 	
-	init(state: TasksListViewModel.State = .loading) {
-		viewModel.state = state
-	}
-	
 	var body: some View {
 		List {
 			switch viewModel.state {
@@ -32,7 +28,9 @@ struct TasksListView: View {
 		}
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
-				Button(action: {} ) {
+				NavigationLink {
+					TaskView()
+				} label: {
 					Image(systemName: "plus")
 				}
 			}

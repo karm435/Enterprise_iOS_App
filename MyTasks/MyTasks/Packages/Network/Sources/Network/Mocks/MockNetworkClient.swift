@@ -4,6 +4,16 @@ import Models
 
 public class MockNetworkClient: NetworkClientProtocol {
 	public var mockReponse: Any? = nil
+	
+	public func post(endPoint: EndPoint) async throws {
+		if mockReponse != nil {
+			return
+		}
+		
+		throw ServerError(error: "Error message")
+	}
+	
+	
 	public func get<Entity>(endPoint: EndPoint) async throws -> Entity where Entity : Decodable {
 		guard let mockReponse else {
 			throw ServerError(error: "Response not set")
