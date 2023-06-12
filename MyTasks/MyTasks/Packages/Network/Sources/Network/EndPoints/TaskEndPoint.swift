@@ -1,9 +1,10 @@
+import Foundation
 import Models
 
 public enum TaskEndPoint: EndPoint {
 	case all
-	case get(id: String)
-	case delete(id: String)
+	case get(id: UUID)
+	case delete(id: UUID)
 	case update(json: Todo)
 	case create(json: Todo)
 	

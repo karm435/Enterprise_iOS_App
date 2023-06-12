@@ -2,13 +2,21 @@
 import SwiftUI
 
 struct TaskView: View {
+	@StateObject private var viewModel: TaskViewModel = .init()
+	
     var body: some View {
-        Text("Hello, World!")
+		Form {
+			TextField("Title", text: $viewModel.task.title)
+		}
+		.navigationTitle("New Task")
+		.navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView()
+		NavigationStack {
+			TaskView()
+		}
     }
 }

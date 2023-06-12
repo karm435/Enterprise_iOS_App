@@ -30,6 +30,13 @@ struct TasksListView: View {
 		.task {
 			await viewModel.onAppear()
 		}
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button(action: {} ) {
+					Image(systemName: "plus")
+				}
+			}
+		}
 		.navigationTitle(Text("My Tasks"))
 	}
 }

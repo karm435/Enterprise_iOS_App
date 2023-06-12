@@ -81,6 +81,7 @@
 		AE1DD15E2A0DB61E00F32703 /* MyTasks */ = {
 			isa = PBXGroup;
 			children = (
+				AE44AF722A36A3E100FA2233 /* Router */,
 				AE6E0C522A2710770027C28A /* Settings */,
 				AE9344CB2A26E48C00D81AA3 /* DI */,
 				AE9344C32A26E31600D81AA3 /* Task */,
@@ -101,6 +102,13 @@
 				AE1DD1662A0DB61F00F32703 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AE44AF722A36A3E100FA2233 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		AE6E0C522A2710770027C28A /* Settings */ = {
