@@ -21,6 +21,17 @@ class TasksListViewModel: ObservableObject {
 			print(error)
 		}
 	}
+	
+	public func delete(_ indexes: IndexSet) async {
+		if let index = indexes.first {
+			do {
+				try await networkClient.delete(endPoint: TaskEndPoint.delete(id: tasks[index].id))
+				tasks.remove(at: index)
+			} catch {
+				print(error.localizedDescription)
+			}
+		}
+	}
 }
 
 

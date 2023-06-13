@@ -18,6 +18,11 @@ struct TasksListView: View {
 							TaskRowView(task: task)
 						}
 					}
+					.onDelete { indexes in
+						Task {
+							await viewModel.delete(indexes)
+						}
+					}
 				case let .error(error: error):
 					Text(error.localizedDescription)
 						.listRowBackground(Color.red)

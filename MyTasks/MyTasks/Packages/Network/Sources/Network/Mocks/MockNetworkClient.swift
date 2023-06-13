@@ -5,6 +5,14 @@ import Models
 public class MockNetworkClient: NetworkClientProtocol {
 	public var mockReponse: Any? = nil
 	
+	public func delete(endPoint: EndPoint) async throws {
+		if mockReponse != nil {
+			return
+		}
+		
+		throw ServerError(error: "Error message")
+	}
+	
 	public func post(endPoint: EndPoint) async throws {
 		if mockReponse != nil {
 			return

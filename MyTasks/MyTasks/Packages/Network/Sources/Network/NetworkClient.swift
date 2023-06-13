@@ -3,6 +3,7 @@ import Foundation
 public protocol NetworkClientProtocol {
 	func get<Entity: Decodable>(endPoint: EndPoint) async throws -> Entity
 	func post(endPoint: EndPoint) async throws
+	func delete(endPoint: EndPoint) async throws
 }
 
 public class NetworkClient: NSObject, NetworkClientProtocol {
@@ -12,6 +13,21 @@ public class NetworkClient: NSObject, NetworkClientProtocol {
 	public override init() {
 		super.init()
 		urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+	}
+	
+	public func delete(endPoint: EndPoint) async throws {
+		guard let urlSession, let url = makeURL(endPoint) else {
+			throw ServerError(error: "Endpoint parsing error")
+		}
+		
+		var urlRequest = URLRequest(url: url)
+		urlRequest.httpMethod = "DELETE"
+		
+		let (data, httpResponse) = try await urlSession.data(for: urlRequest)
+		if let httpResponse = httpResponse as? HTTPURLResponse, httpResponse.statusCode > 299 {
+			print(httpResponse)
+			throw ServerError(error: String(data: data, encoding: .utf8) ?? "Error with code \(httpResponse.statusCode)")
+		}
 	}
 	
 	public func post(endPoint: EndPoint) async throws {
@@ -59,8 +75,7 @@ public class NetworkClient: NSObject, NetworkClientProtocol {
 		}
 	}
 	
-	private func makeURL(scheme: String = "https",
-						_ endPoint: EndPoint) -> URL? {
+	private func makeURL(scheme: String = "https", _ endPoint: EndPoint) -> URL? {
 		var components = URLComponents()
 		components.scheme = scheme
 		components.host = "localhost"

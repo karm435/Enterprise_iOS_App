@@ -13,9 +13,9 @@ public enum TaskEndPoint: EndPoint {
 			case .all:
 				return "todos"
 			case .get(let id):
-				return "task/\(id)"
+				return "todos/\(id)"
 			case .delete(let id):
-				return "task/\(id)"
+				return "todos/\(id)"
 			case .update:
 				return "todos"
 			case .create:
