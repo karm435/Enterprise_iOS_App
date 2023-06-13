@@ -31,6 +31,9 @@ struct TasksListView: View {
 		.task {
 			await viewModel.onAppear()
 		}
+		.refreshable {
+			await viewModel.onAppear()
+		}
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				NavigationLink {
