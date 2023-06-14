@@ -6,7 +6,7 @@ import Network
 
 struct TasksListView: View {
 	@StateObject var viewModel: TasksListViewModel = .init()
-	@State private var path: [UUID] = []
+	
 	var body: some View {
 		List {
 			switch viewModel.state {
@@ -14,7 +14,7 @@ struct TasksListView: View {
 					RedactedTasksListView()
 				case let .display(tasks: tasks):
 					ForEach(tasks, id:\.id) { task in
-						NavigationLink(value: task.id) {
+						NavigationLink(value: RouterDestinations.taskUpdate(id: task.id)) {
 							TaskRowView(task: task)
 						}
 					}
@@ -31,9 +31,6 @@ struct TasksListView: View {
 		.listStyle(.plain)
 		.background(.white)
 		.navigationBarTitleDisplayMode(.large)
-		.navigationDestination(for: UUID.self) { taskId in
-			TaskUpdateView(id: taskId)
-		}
 		.task {
 			await viewModel.onAppear()
 		}

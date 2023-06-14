@@ -18,3 +18,9 @@ extension Todo {
 		 .placeholder, .placeholder, Todo(id: UUID(), title: "Done task", isCompleted: true),.placeholder]
 	}
 }
+
+extension Todo: Equatable, Hashable {
+	public static func == (lhs: Self, rhs: Self) -> Bool {
+		lhs.id == rhs.id
+	}
+}

@@ -2,11 +2,16 @@
 import SwiftUI
 
 struct ContentView: View {
+	@StateObject private var routerPath: RouterPath = .init()
+	
     var body: some View {
-        NavigationStack {
+		NavigationStack(path: $routerPath.path) {
             TasksListView()
+				.withAppRouter()
+				.environmentObject(routerPath)
         }
         .padding()
+		
     }
 }
 
