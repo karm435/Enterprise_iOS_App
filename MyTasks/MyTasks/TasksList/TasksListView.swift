@@ -6,7 +6,7 @@ import Network
 
 struct TasksListView: View {
 	@StateObject var viewModel: TasksListViewModel = .init()
-	
+	@State private var path: [UUID] = []
 	var body: some View {
 		List {
 			switch viewModel.state {
@@ -28,6 +28,12 @@ struct TasksListView: View {
 						.listRowBackground(Color.red)
 			}
 		}
+		.listStyle(.plain)
+		.background(.white)
+		.navigationBarTitleDisplayMode(.large)
+		.navigationDestination(for: UUID.self) { taskId in
+			TaskUpdateView(id: taskId)
+		}
 		.task {
 			await viewModel.onAppear()
 		}
@@ -37,7 +43,7 @@ struct TasksListView: View {
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				NavigationLink {
-					TaskView()
+					TaskCreateView()
 				} label: {
 					Image(systemName: "plus")
 				}

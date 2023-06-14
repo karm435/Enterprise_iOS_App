@@ -1,15 +1,16 @@
 
 import SwiftUI
 
-struct TaskView: View {
+struct TaskCreateView: View {
 	@StateObject private var viewModel: TaskViewModel = .init()
 	
     var body: some View {
 		Form {
 			TextField("Title", text: $viewModel.task.title)
 		}
+		.scrollContentBackground(.hidden)
+		.background(.white)
 		.navigationTitle("New Task")
-		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				Button(action:  {
@@ -29,7 +30,7 @@ struct TaskView: View {
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
 		NavigationStack {
-			TaskView()
+			TaskCreateView()
 		}
     }
 }
