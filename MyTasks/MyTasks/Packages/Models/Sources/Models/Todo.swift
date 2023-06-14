@@ -19,8 +19,4 @@ extension Todo {
 	}
 }
 
-extension Todo: Equatable, Hashable {
-	public static func == (lhs: Self, rhs: Self) -> Bool {
-		lhs.id == rhs.id
-	}
-}
+extension Todo: Equatable, Hashable { }

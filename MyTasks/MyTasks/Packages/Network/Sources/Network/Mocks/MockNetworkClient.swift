@@ -21,6 +21,14 @@ public class MockNetworkClient: NetworkClientProtocol {
 		throw ServerError(error: "Error message")
 	}
 	
+	public func put(endPoint: EndPoint) async throws {
+		if mockReponse != nil {
+			return
+		}
+		
+		throw ServerError(error: "Error message")
+	}
+	
 	
 	public func get<Entity>(endPoint: EndPoint) async throws -> Entity where Entity : Decodable {
 		guard let mockReponse else {

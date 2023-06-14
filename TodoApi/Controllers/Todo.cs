@@ -9,11 +9,11 @@ public class Todo {
 public class TodoDb {
     private static List<Todo> _todos = new List<Todo>() {
         new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = false },
-        new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = false },
-        new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = true },
-        new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = false },
-        new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = true },
-        new Todo { id = Guid.NewGuid(), title = "Do the thing", isCompleted = false }
+        new Todo { id = Guid.NewGuid(), title = "Do the thing 2", isCompleted = false },
+        new Todo { id = Guid.NewGuid(), title = "Do the thing 3" , isCompleted = true },
+        new Todo { id = Guid.NewGuid(), title = "Do the thing 4", isCompleted = false },
+        new Todo { id = Guid.NewGuid(), title = "Do the thing 5", isCompleted = true },
+        new Todo { id = Guid.NewGuid(), title = "Do the thing 6", isCompleted = false }
     };
 
     public static IEnumerable<Todo> Get() => TodoDb._todos.ToArray();
@@ -22,11 +22,11 @@ public class TodoDb {
 
     public static Todo Update(Todo update) {
         _todos = _todos.Select(todo => {
-            if(todo.id == update.id) {
+            if(Guid.Equals(todo.id, update.id)) {
                 todo.title = update.title;
                 todo.isCompleted = update.isCompleted;
             }
-            return update;
+            return todo;
         }).ToList();
         return update;
     }
