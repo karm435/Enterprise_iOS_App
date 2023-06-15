@@ -90,7 +90,6 @@
 				AE9344CB2A26E48C00D81AA3 /* DI */,
 				AE9344C32A26E31600D81AA3 /* Task */,
 				AE9344C22A26E30400D81AA3 /* TasksList */,
-				AE9344C12A26E2F800D81AA3 /* TasksHome */,
 				AE9344B92A26CC9900D81AA3 /* Info.plist */,
 				AE1DD15F2A0DB61E00F32703 /* MyTasksApp.swift */,
 				AE1DD1612A0DB61E00F32703 /* ContentView.swift */,
@@ -130,13 +129,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AE9344C12A26E2F800D81AA3 /* TasksHome */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TasksHome;
 			sourceTree = "<group>";
 		};
 		AE9344C22A26E30400D81AA3 /* TasksList */ = {

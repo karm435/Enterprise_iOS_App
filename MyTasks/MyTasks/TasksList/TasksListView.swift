@@ -6,6 +6,7 @@ import Network
 
 struct TasksListView: View {
 	@StateObject var viewModel: TasksListViewModel = .init()
+	@State private var searchText: String = ""
 	
 	var body: some View {
 		List {
@@ -13,7 +14,7 @@ struct TasksListView: View {
 				case .loading:
 					RedactedTasksListView()
 				case let .display(tasks: tasks):
-					ForEach(tasks, id:\.id) { task in
+					ForEach(tasks.filter { searchText.isEmpty ? true : $0.title.contains(searchText)}, id:\.id) { task in
 						NavigationLink(value: RouterDestinations.taskUpdate(id: task.id)) {
 							TaskRowView(task: task)
 						}
@@ -37,6 +38,7 @@ struct TasksListView: View {
 		.refreshable {
 			await viewModel.onAppear()
 		}
+		.searchable(text: $searchText)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				NavigationLink {
