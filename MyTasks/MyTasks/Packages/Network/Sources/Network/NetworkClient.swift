@@ -5,6 +5,7 @@ public protocol NetworkClientProtocol {
 	func post(endPoint: EndPoint) async throws
 	func put(endPoint: EndPoint) async throws
 	func delete(endPoint: EndPoint) async throws
+    func getTasks() async
 }
 
 public class NetworkClient: NSObject, NetworkClientProtocol {
@@ -13,9 +14,14 @@ public class NetworkClient: NSObject, NetworkClientProtocol {
 	
 	public override init() {
 		super.init()
+        print("Network client initialized")
 		urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
 	}
 	
+    public func getTasks() async {
+        
+    }
+    
 	public func delete(endPoint: EndPoint) async throws {
 		guard let urlSession, let url = makeURL(endPoint) else {
 			throw ServerError(error: "Endpoint parsing error")

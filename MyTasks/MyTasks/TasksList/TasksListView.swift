@@ -1,7 +1,6 @@
 
 import SwiftUI
 import Models
-import Dependency
 import Network
 
 struct TasksListView: View {
@@ -65,7 +64,9 @@ struct TasksListView: View {
 struct TasksListView_Previews: PreviewProvider {
 	struct PreviewWithData: View {
 		init() {
-			DependencyValues[\.networkClient] = MockNetworkClient.tasksMockClient
+            let _ = TasksContainer.shared.networkService.register {
+                MockNetworkClient.tasksMockClient
+            }
 		}
 		
 		var body: some View {
@@ -87,30 +88,5 @@ struct TasksListView_Previews: PreviewProvider {
 	}
 }
 
-struct TasksListView_PreviewsError: PreviewProvider {
-	
-	struct PreviewWithError: View {
-		init() {
-			DependencyValues[\.networkClient] = MockNetworkClient.errorClient
-		}
-		
-		var body: some View {
-			TasksListView()
-		}
-	}
-	
-	static var previews: some View {
-		Group {
-			NavigationStack {
-				PreviewWithError()
-					.preferredColorScheme(.dark)
-			}
-			
-			NavigationStack {
-				PreviewWithError()
-			}
-		}
-	}
-}
 
 

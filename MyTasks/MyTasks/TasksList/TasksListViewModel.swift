@@ -1,13 +1,13 @@
 import Foundation
-import Dependency
 import Models
 import Network
 import Combine
 import SwiftUI
+import Factory
 
 @MainActor
 class TasksListViewModel: ObservableObject {
-	@Dependency(\.networkClient) var networkClient
+    @Injected(\TasksContainer.networkService) var networkClient: NetworkClientProtocol
 	@Published var state: State = .loading
 	@Published var searchText: String = ""
 	@Published var isSearching = false

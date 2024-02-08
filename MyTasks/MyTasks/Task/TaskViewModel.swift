@@ -1,12 +1,12 @@
 
 import Foundation
-import Dependency
 import Network
 import Models
 import SwiftUI
+import Factory
 
 public class TaskViewModel: ObservableObject {
-	@Dependency(\.networkClient) var networkClient
+    @Injected(\TasksContainer.networkService) var networkClient: NetworkClientProtocol
 	@Published var task: Todo = .placeholder
 	@Published var isSaving: Bool = false
 	@Published var state: TaskViewModel.ViewState = .loading

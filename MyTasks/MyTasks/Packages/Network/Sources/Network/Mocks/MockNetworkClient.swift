@@ -3,6 +3,10 @@ import Foundation
 import Models
 
 public class MockNetworkClient: NetworkClientProtocol {
+    public func getTasks() async {
+        
+    }
+    
 	public var mockReponse: Any? = nil
 	
 	public func delete(endPoint: EndPoint) async throws {

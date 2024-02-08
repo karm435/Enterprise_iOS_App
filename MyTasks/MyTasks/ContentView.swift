@@ -6,9 +6,19 @@ struct ContentView: View {
 	
     var body: some View {
 		NavigationStack(path: $routerPath.path) {
-            TasksListView()
-				.withAppRouter()
-				.environmentObject(routerPath)
+            VStack {
+                NavigationLink(destination: SampleUI()) {
+                    Text("Sample UI")
+                }
+                
+                NavigationLink(destination: SampleUI2()) {
+                    Text("Sample UI2")
+                }
+                //TasksListView()
+                   
+            }
+            .withAppRouter()
+            .environmentObject(routerPath)
         }
         .padding()
 		

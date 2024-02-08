@@ -1,15 +1,22 @@
 
 import Foundation
-import Dependency
 import Network
+import Factory
 
-private struct NetworkClientKey: DependencyKey {
-	static var currentValue: NetworkClientProtocol = NetworkClient()
+public final class TasksContainer: SharedContainer {
+    public static let shared = TasksContainer()
+    
+    public let manager: ContainerManager = ContainerManager()
+    
+    public init() {}
 }
 
-extension DependencyValues {
-	var networkClient: NetworkClientProtocol {
-		get { Self[NetworkClientKey.self] }
-		set { Self[NetworkClientKey.self] = newValue }
-	}
+extension TasksContainer {
+    var networkService: Factory<NetworkClientProtocol> {
+        self { NetworkClient()}.singleton
+    }
+    
+    var tasksService: Factory<MyTasksServiceProtocol> {
+        self { MyTasksService()}.scope(.unique)
+    }
 }
