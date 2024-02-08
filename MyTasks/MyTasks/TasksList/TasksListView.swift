@@ -33,8 +33,8 @@ struct TasksListView: View {
 							}
 						}
 					}
-				case let .error(error: error):
-					Text(error.localizedDescription)
+				case .error:
+					Text("Error while fetching the data from api")
 						.listRowBackground(Color.red)
 			}
 		}

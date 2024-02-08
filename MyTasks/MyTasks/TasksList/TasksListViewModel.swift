@@ -5,7 +5,7 @@ import Combine
 import SwiftUI
 import Factory
 
-@MainActor
+
 class TasksListViewModel: ObservableObject {
     @Injected(\TasksContainer.networkService) var networkClient: NetworkClientProtocol
 	@Published var state: State = .loading
@@ -19,10 +19,13 @@ class TasksListViewModel: ObservableObject {
 		$searchText
 			.debounce(for: .milliseconds(250), scheduler: DispatchQueue.main)
 			.sink { [weak self] _ in
-				if let searchTask = self?.searchTask {
+                guard let self = self else {return}
+				if let searchTask = self.searchTask {
 					searchTask.cancel()
 				}
-				self?.search()
+                Task {
+                 await self.search()
+                }
 			}
 			.store(in: &cancelllables)
 			
@@ -35,11 +38,11 @@ class TasksListViewModel: ObservableObject {
 			state = .display(tasks: tasks)
 		}
 		catch {
-			state = .error(error: error)
+			state = .error
 			print(error)
 		}
 	}
-	
+    @MainActor
 	public func delete(_ indexes: IndexSet) async {
 		if let index = indexes.first {
 			do {
@@ -50,7 +53,7 @@ class TasksListViewModel: ObservableObject {
 			}
 		}
 	}
-	
+    @MainActor
 	private func search() {
 		guard !searchText.isEmpty else {
 			state = .display(tasks: tasks)
@@ -75,9 +78,9 @@ class TasksListViewModel: ObservableObject {
 
 
 extension TasksListViewModel {
-	public enum State {
+    public enum State: Equatable {
 		case loading
-		case error(error: Error)
+		case error
 		case display(tasks: [Todo])
 	}
 }
